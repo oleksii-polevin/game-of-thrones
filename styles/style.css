@@ -3,7 +3,7 @@ body {
   padding: 0;
 }
 
-.landing {
+.landing-page {
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 100vh;
@@ -16,13 +16,13 @@ body {
   font-weight: normal;
 }
 
-.left {
+.landing-page__left {
   background-image: url('../sources/image/wolf.jpg');
   background-size: cover;
   background-position: center;
 }
 
-.right {
+.landing-page__right {
   color: #c0994f;
   background-image: url('../sources/image/darknoise.png');
   background-size: cover;
@@ -38,7 +38,7 @@ body {
   margin-top: 40px;
 }
 
-form {
+.form {
   font-family: "Helvetica" sans-serif;
   padding: 10px 80px;
   margin: auto;
@@ -47,15 +47,12 @@ form {
   align-content: center;
 }
 
-input {
-  margin: 20px 0;
-}
-
-label {
+.form__label {
   font-size: 20px;
 }
 
-.input_box {
+.form__input-box {
+  margin: 20px 0;
   background-image: url('../sources/image/darknoise.png');
   border: none;
   border-bottom: 3px solid #c0994f;
