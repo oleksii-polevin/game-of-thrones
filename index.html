@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="sources/fonts">
 </head>
 <body>
-  <div class="landing-page">
+  <div class="landing-page" id="page-1">
     <section class="landing-page__left">
     </section>
     <section class="landing-page__right">
@@ -25,7 +25,7 @@
         <input type="checkbox" id="checkbox" name="userdata">
         <label for="checkbox" class="form__label" id="checkbox_label">Remember me</label>
 
-        <a href="#" class="button">Sign Up</a>
+        <a href="#page-2" class="button">Sign Up</a>
       </form>
     </section>
   </div>
@@ -36,21 +36,26 @@
       <div class="landing-page__right heading">
         <h1>Game of thrones</h1>
       </div>
-      <form class="form" action="index.html" method="post">
-        <p>You've successfully joined the game. <br>
-          Tell us more about yourself.
-        </p>
+      <form class="form" action="" method="post">
+        <div class="form__message">
+          <p class="form__message_text">You've successfully joined the game. <br>
+            Tell us more about yourself.
+          </p>
+        </div>
+
         <label for="name" class="form__label">
-          <h2>Who are you?</h2>
-          <p>Alpha-numeric username</p>
+          <h2 class="form__label_heading">Who are you?</h2>
+          <p class="form__label_text">Alpha-numeric username</p>
         </label>
         <input type="text" class="form__input-box" name="userdata" placeholder="arya">
         <label for="houses" class="form__label">Your Great House</label>
-        <input list="houses"  class="form__input-box" name="userdata" placeholder="Select House">
+        <input list="houses"  class="form__input-box form__input-box_select" name="userdata" placeholder="Select House">
         <datalist id="houses">
           <option>First House</option>
           <option>Second House</option>
           <option>Third House</option>
+          <option>Fourth House</option>
+          <option>Last House</option>
         </datalist>
         <label for="textarea" class="form__label">Your preferences, hobbies, wishes, etc.</label>
         <textarea name="textarea"  class="form__input-box"
