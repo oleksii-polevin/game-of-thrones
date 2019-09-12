@@ -8,10 +8,10 @@
 </head>
 <body>
   <div class="landing-page" id="page-1">
-    <section class="landing-page__left">
+    <section class="left">
     </section>
-    <section class="landing-page__right">
-      <div class="landing-page__right heading">
+    <section class="right">
+      <div class="heading">
         <h1>Game of thrones</h1>
       </div>
       <form class="form" action="" method="post">
@@ -19,33 +19,31 @@
         <input type="email" class="form__input-box" name="userdata" placeholder="example@gmail.com">
         <label for="password" class="form__label" id="password_label">
           <h2>Choose secure password</h2>
-          <p>must be at least 8 characters</p>
+          <p class="password__text">must be at least 8 characters</p>
         </label>
         <input type="password" class="form__input-box" name="userdata" placeholder="enter your password">
         <input type="checkbox" id="checkbox" name="userdata">
-        <label for="checkbox" class="form__label" id="checkbox_label">Remember me</label>
-
-        <a href="#page-2" class="button">Sign Up</a>
+        <label for="checkbox" class="form__label form--checkbox-custom">Remember me</label>
+        <a href="#" class="button">Sign Up</a>
       </form>
     </section>
   </div>
   <div class="landing-page" id="page-2">
-    <section class="landing-page__left">
+    <section class="left">
     </section>
-    <section class="landing-page__right">
-      <div class="landing-page__right heading">
+    <section class="right">
+      <div class="heading">
         <h1>Game of thrones</h1>
       </div>
       <form class="form" action="" method="post">
-        <div class="form__message">
-          <p class="form__message_text">You've successfully joined the game. <br>
+        <div class="message">
+          <p class="message__text">You've successfully joined the game. <br>
             Tell us more about yourself.
           </p>
         </div>
-
-        <label for="name" class="form__label">
-          <h2 class="form__label_heading">Who are you?</h2>
-          <p class="form__label_text">Alpha-numeric username</p>
+        <label for="name" class="label">
+          <h2 class="label__heading">Who are you?</h2>
+          <p class="label__text">Alpha-numeric username</p>
         </label>
         <input type="text" class="form__input-box" name="userdata" placeholder="arya">
         <label for="houses" class="form__label">Your Great House</label>
@@ -64,6 +62,5 @@
       </form>
     </section>
   </div>
-
 </body>
 </html>

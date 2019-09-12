@@ -3,12 +3,6 @@ body {
   padding: 0;
 }
 
-.landing-page {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  height: 100vh;
-}
-
 @font-face {
   font-family: "GameofThrones";
   src: url('../sources/fonts/GameofThrones.ttf');
@@ -16,13 +10,19 @@ body {
   font-weight: normal;
 }
 
-.landing-page__left {
+.landing-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+}
+
+.left {
   background-image: url('../sources/image/wolf.jpg');
   background-size: cover;
   background-position: center;
 }
 
-.landing-page__right {
+.right {
   color: #c0994f;
   background-image: url('../sources/image/darknoise.png');
   background-size: cover;
@@ -50,6 +50,16 @@ body {
   font-size: 20px;
 }
 
+.label__heading {
+  font-size: 18px;
+}
+
+.label__text {
+  margin: -10px 0;
+  color: white;
+  font-size: 14px;
+}
+
 .form__input-box {
   margin: 20px 0;
   background-image: url('../sources/image/darknoise.png');
@@ -59,7 +69,11 @@ body {
   color: white;
 }
 
-.form__message {
+.form__input-box_select::placeholder {
+  color: white;
+}
+
+.message {
   color: white;
   padding: 0;
   padding-left: 10px;
@@ -67,47 +81,8 @@ body {
   border-left: 3px solid #c0994f;
 }
 
-.form__message_text {
+.message__text {
   margin: 0;
-}
-
-.form__label_heading {
-  font-size: 18px;
-}
-
-.form__label_text {
-  margin: -10px 0;
-  color: white;
-  font-size: 14px;
-}
-
-.form__input-box_select::placeholder {
-  color: white;
-}
-
-#password_label p{
-  margin-top: -20px;
-  color: white;
-}
-
-
-#checkbox_label::before {
-  content: '';
-  display: inline-block;
-  height: 20px;
-  width: 20px;
-  margin-right: 5px;
-  background-color:#c0994f;
-  transition: 0.2s;
-}
-
-input[type=checkbox]{
-  display: none;
-}
-
-input[type=checkbox]:checked + #checkbox_label::before {
-  background-image:url('../sources/image/checkbox.png');
-  background-size: cover;
 }
 
 .button {
@@ -123,6 +98,30 @@ input[type=checkbox]:checked + #checkbox_label::before {
   color: black;
 }
 
-/* #page-2 {
+.password__text {
+  margin-top: -20px;
+  color: white;
+}
+
+.form--checkbox-custom::before {
+  content: '';
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  margin-right: 5px;
+  background-color:#c0994f;
+  transition: 0.2s;
+}
+
+input[type=checkbox]{
   display: none;
-} */
+}
+
+input[type=checkbox]:checked + .form--checkbox-custom::before {
+  background-image:url('../sources/image/checkbox.png');
+  background-size: cover;
+}
+
+#page-2 {
+  display: none;
+}
