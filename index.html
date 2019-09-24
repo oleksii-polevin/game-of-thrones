@@ -4,38 +4,28 @@
   <meta charset="utf-8" content="width=device-width, initial-scale=1">
   <title>Game of Thrones</title>
   <link rel="stylesheet" type="text/css" href="styles/style.css">
-  <link rel="stylesheet" href="sources/fonts">
 </head>
 <body>
-  <div class="landing-page" id="page-1">
+  <div class="landing-page">
     <section class="left">
     </section>
     <section class="right">
       <div class="heading">
-        <h1>Game of thrones</h1>
+        <h1 class="heading__title">Game of thrones</h1>
       </div>
-      <form class="form" action="" method="post">
+      <form class="form" action="" method="post" id="firstForm">
         <label for="email" class="form__label">Enter your email</label>
         <input type="email" class="form__input-box" name="userdata" placeholder="example@gmail.com">
-        <label for="password" class="form__label" id="password_label">
-          <h2>Choose secure password</h2>
-          <p class="password__text">must be at least 8 characters</p>
+        <label for="password" class="form__label">
+          <h4 class="password__heading">Choose secure password</h4>
+          <p class="password__text">Must be at least 8 characters</p>
         </label>
         <input type="password" class="form__input-box" name="userdata" placeholder="enter your password">
         <input type="checkbox" id="checkbox" name="userdata">
         <label for="checkbox" class="form__label form--checkbox-custom">Remember me</label>
         <a href="#" class="button">Sign Up</a>
       </form>
-    </section>
-  </div>
-  <div class="landing-page" id="page-2">
-    <section class="left">
-    </section>
-    <section class="right">
-      <div class="heading">
-        <h1>Game of thrones</h1>
-      </div>
-      <form class="form" action="" method="post">
+      <form class="form" action="" method="post" id="secondForm">
         <div class="message">
           <p class="message__text">You've successfully joined the game. <br>
             Tell us more about yourself.
@@ -56,11 +46,11 @@
           <option>Last House</option>
         </datalist>
         <label for="textarea" class="form__label">Your preferences, hobbies, wishes, etc.</label>
-        <textarea name="textarea"  class="form__input-box"
-        rows="4" placeholder="I have long TOKILL list..."></textarea>
-        <a href="#" class="button">Save</a>
+        <textarea name="textarea"  class="form__input-box form__input-box__textarea" rows="3" placeholder="I have long TOKILL list..."></textarea>
+        <a href="#" class="button button__save">Save</a>
       </form>
     </section>
   </div>
+
 </body>
 </html>
