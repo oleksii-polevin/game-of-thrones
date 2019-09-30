@@ -69,7 +69,8 @@ body {
 
 .label__heading {
   margin-bottom: 0;
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: lighter;
 }
 
 .label__text {
@@ -123,6 +124,9 @@ body {
 .button:hover {
   color: #202020;
 }
+.submit {
+  border: 3px solid #c0994f;
+}
 
 .button__save {
   margin-top: 30px;
@@ -140,6 +144,7 @@ body {
   height: 15px;
   width: 15px;
   margin-right: 5px;
+  border-radius: 20%;
   background-color:#d3bb89;
   transition: 0.2s;
 }

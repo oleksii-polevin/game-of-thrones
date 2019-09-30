@@ -13,17 +13,17 @@
       <div class="heading">
         <h1 class="heading__title">Game of thrones</h1>
       </div>
-      <form class="form" action="" method="post" id="firstForm">
+      <form class="form" action="" method="get" id="firstForm">
         <label for="email" class="form__label">Enter your email</label>
-        <input type="email" class="form__input-box" name="userdata" placeholder="example@gmail.com">
+        <input type="email" class="form__input-box" id="mail" name="userdata" placeholder="example@gmail.com">
         <label for="password" class="form__label">
           <h4 class="password__heading">Choose secure password</h4>
           <p class="password__text">Must be at least 8 characters</p>
         </label>
-        <input type="password" class="form__input-box" name="userdata" placeholder="enter your password">
+        <input type="password" class="form__input-box form__password" id="password" name="userdata" placeholder="enter your password">
         <input type="checkbox" id="checkbox" name="userdata">
         <label for="checkbox" class="form__label form--checkbox-custom">Remember me</label>
-        <a href="#" class="button">Sign Up</a>
+        <button class="submit button" type="submit">Sign Up</button>
       </form>
       <form class="form" action="" method="post" id="secondForm">
         <div class="message">
@@ -51,6 +51,6 @@
       </form>
     </section>
   </div>
-
 </body>
+<script type="text/javascript" src="src/main.js"></script>
 </html>
