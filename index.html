@@ -35,9 +35,9 @@
           <h2 class="label__heading">Who are you?</h2>
           <p class="label__text">Alpha-numeric username</p>
         </label>
-        <input type="text" class="form__input-box" name="userdata" placeholder="arya">
+        <input type="text" id="name" class="form__input-box" name="userdata" placeholder="arya">
         <label for="houses" class="form__label">Your Great House</label>
-        <input list="houses"  class="form__input-box form__input-box_select" name="userdata" placeholder="Select House">
+        <input list="houses" id="select" class="form__input-box form__input-box_select" value="" name="userdata" placeholder="Select House">
         <datalist id="houses">
           <option>First House</option>
           <option>Second House</option>
@@ -46,8 +46,8 @@
           <option>Last House</option>
         </datalist>
         <label for="textarea" class="form__label">Your preferences, hobbies, wishes, etc.</label>
-        <textarea name="textarea"  class="form__input-box form__input-box__textarea" rows="3" placeholder="I have long TOKILL list..."></textarea>
-        <a href="#" class="button button__save">Save</a>
+        <textarea name="textarea" id="textarea" class="form__input-box form__input-box__textarea" rows="3" placeholder="I have long TOKILL list..."></textarea>
+        <button id="save" class="submit button" type="submit">Save</button>
       </form>
     </section>
   </div>
