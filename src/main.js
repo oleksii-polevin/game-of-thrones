@@ -16,13 +16,15 @@ const attempts = {
 const validationRules =
 {
   email: function(elem) {
-    const regex = /\w{2,16}\@\w{2,6}\.\w{2,6}/;
+    const regex = /\w{2,16}\@\w{2,6}\.\w{2,4}/;
     return regex.test(elem);
   },
   password:function(elem) {
     //at least one lowercase letter, one uppercase,and one digit; length >=8
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
     return regex.test(elem);
+    //for testing
+    // return elem.length > 7;
   },
   name: function(elem) {
     return elem.length > 2;
