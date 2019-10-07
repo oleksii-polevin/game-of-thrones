@@ -165,3 +165,9 @@ input[type=checkbox]:checked + .form--checkbox-custom::before {
 #secondForm {
   display: none;
 }
+#errorMessage {
+  display: none;
+  font-size: .6em;
+  color: red;
+  font-family: serif;
+}

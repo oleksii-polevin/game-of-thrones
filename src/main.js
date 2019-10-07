@@ -21,10 +21,10 @@ const validationRules =
   },
   password:function(elem) {
     //at least one lowercase letter, one uppercase,and one digit; length >=8
-    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
-    return regex.test(elem);
+    // const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+    // return regex.test(elem);
     //for testing
-    // return elem.length > 7;
+    return elem.length > 7;
   },
   name: function(elem) {
     return elem.length > 2;
@@ -48,7 +48,9 @@ forma.addEventListener('submit', function(e) {
   if((validationRules.password(password.value)) &&
   (validationRules.email(email.value))) {
     showSecondForm();
+    toggleMessage('hide');
   }else {
+    toggleMessage('show');
     if(!validationRules.password(password.value)) {
       attemptSwitcher(password, 'password');
     }
@@ -58,13 +60,21 @@ forma.addEventListener('submit', function(e) {
   }
 });
 
+function toggleMessage(flag) {
+  flag === 'show' ?
+  document.getElementById('errorMessage').style.display = 'block':
+  document.getElementById('errorMessage').style.display = 'none';
+}
+
 forma2.addEventListener('click', function(e) {
   e.preventDefault();
   if(validationRules.name(name.value) &&
   validationRules.select(select.value) &&
   validationRules.textarea(textarea.value)) {
     alert('info is correct');
+    toggleMessage('hide');
   } else {
+    toggleMessage('show');
     if(!validationRules.name(name.value)) {
       attemptSwitcher(name, 'name');
     }
@@ -86,7 +96,7 @@ function attemptSwitcher(element, name) {
   if(attempts[x] === 0) {
     firstValidation(element);
   } else if(attempts[x] === 1) {
-    focusValidation(element, name, 'blur');
+    focusValidation(element, name, 'focusout');
   } else if(attempts[x] >= 2){
     focusValidation(element, name, 'keyup');
   }
