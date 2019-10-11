@@ -5,6 +5,9 @@ const name = document.getElementById('name');
 const select = document.getElementById('select');
 const textarea = document.getElementById('textarea');
 const forma2 = document.getElementById('save');
+//firstly wrong fields highlighted when button clicked
+//second time when input area become inactive
+//finally wrong fields highlighted after each inputted symbol
 const attempts = {
   email: 0,
   password: 0,
@@ -39,7 +42,9 @@ const validationRules =
     return false;
   },
   textarea: function(elem) {
-    return elem.length > 10 && elem.length < 300;
+    const minNumberOfSymbols = 15;
+    const maxNumberOfSymbols = 300;
+    return elem.length > minNumberOfSymbols && elem.length < maxNumberOfSymbols;
   }
 }
 
@@ -49,7 +54,7 @@ forma.addEventListener('submit', function(e) {
   (validationRules.email(email.value))) {
     showSecondForm();
     toggleMessage('hide');
-  }else {
+  } else {
     toggleMessage('show');
     if(!validationRules.password(password.value)) {
       attemptSwitcher(password, 'password');
@@ -62,8 +67,8 @@ forma.addEventListener('submit', function(e) {
 
 function toggleMessage(flag) {
   flag === 'show' ?
-  document.getElementById('errorMessage').style.display = 'block':
-  document.getElementById('errorMessage').style.display = 'none';
+  document.getElementById('errorMessage').style.color = 'red':
+  document.getElementById('errorMessage').style.color = '#202020';
 }
 
 forma2.addEventListener('click', function(e) {
@@ -87,20 +92,20 @@ forma2.addEventListener('click', function(e) {
   }
 })
 function attemptSwitcher(element, name) {
-  let x;
+  let elemName;
   for(let key in attempts) {
     if(key.toString() === name) {
-      x = key;
+      elemName = key;
     }
   }
-  if(attempts[x] === 0) {
+  if(attempts[elemName] === 0) {
     firstValidation(element);
-  } else if(attempts[x] === 1) {
+  } else if(attempts[elemName] === 1) {
     focusValidation(element, name, 'focusout');
-  } else if(attempts[x] >= 2){
+  } else if(attempts[elemName] >= 2){
     focusValidation(element, name, 'keyup');
   }
-  attempts[x]++;
+  attempts[elemName]++;
 }
 
 function firstValidation(element) {
@@ -108,23 +113,23 @@ function firstValidation(element) {
 }
 
 function focusValidation(element, name, eventType) {
-  let x;
+  let elemName;
   for(let key in validationRules) {
     if(key.toString() === name) {
-      x = key;
+      elemName = key;
     }
   }
   const norm = '3px solid green';
   const invalid = '3px solid red';
   element.addEventListener(eventType, function () {
-    validationRules[x](element.value) ? element.style.borderBottom = norm
+    validationRules[elemName](element.value) ? element.style.borderBottom = norm
     : element.style.borderBottom = invalid;
   })
 }
 
 function showSecondForm() {
-  let first = document.getElementById('firstForm');
-  let second = document.getElementById('secondForm');
+  const first = document.getElementById('firstForm');
+  const second = document.getElementById('secondForm');
   first.style.display = "none";
   second.style.display = 'flex';
 }

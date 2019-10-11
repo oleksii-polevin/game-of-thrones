@@ -36,19 +36,20 @@ body {
   background-image: url('../sources/image/darknoise.png');
   background-size: cover;
   align-content: center;
+  display: flex;
+  flex-direction:column;
 }
 
 .heading {
   font-family: "GameofThrones";
   text-align: center;
   text-transform: uppercase;
-  font-size: 18px;
-  padding: 20px;
-  margin-top: 10px;
+  font-size: 1.2em;
+  margin: 16px;
 }
 
 .form {
-  padding: 5px 60px;
+  padding: 2em 2.5em;
   margin: 0 2.5em;
   display: flex;
   flex-direction: column;
@@ -56,7 +57,7 @@ body {
 
 .form__label {
   font-family: "EB Garamond", serif;
-  font-size: 20px;
+  font-size: 1.2em;
 }
 
 .heading__title, .password__heading {
@@ -69,25 +70,25 @@ body {
 
 .label__heading {
   margin-bottom: 0;
-  font-size: 18px;
+  font-size: 1em;
   font-weight: lighter;
 }
 
 .label__text {
   font-family: "Open Sans", sans-serif;
   color: white;
-  font-size: 10px;
+  font-size: .6em;
   margin-top: 0;
 }
 
 .message__text {
   font-family: "Open Sans", sans-serif;
-  font-size: 12px;
+  font-size: .8em;
 }
 
 .form__input-box {
   font-family: "Open Sans", sans-serif;
-  margin: 10px 0;
+  margin: 0 1em 2em 0;
   padding: 10px 0;
   background-image: url('../sources/image/darknoise.png');
   border: none;
@@ -116,7 +117,7 @@ body {
   font-family: "Open Sans", sans-serif;
   text-decoration: none;
   text-align: center;
-  margin-top: 60px;
+  margin-top: 3.5em;
   padding: 10px;
   background: #c19a49;
 }
@@ -129,7 +130,7 @@ body {
 }
 
 .button__save {
-  margin-top: 20px;
+  margin-top: 1.5em;
 }
 
 .password__text {
@@ -160,14 +161,15 @@ input[type=checkbox]:checked + .form--checkbox-custom::before {
 
 .form__input-box__textarea {
   resize: none;
+  height: 3em;
 }
 
 #secondForm {
   display: none;
+  padding-top: 0;
 }
 #errorMessage {
-  display: none;
-  font-size: .6em;
-  color: red;
+  font-size: .4em;
+  color: #202020;
   font-family: serif;
 }
