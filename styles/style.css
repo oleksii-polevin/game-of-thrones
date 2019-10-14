@@ -41,7 +41,7 @@ body {
 }
 
 .heading {
-  font-family: "GameofThrones";
+  font-family: "GameofThrones", serif;
   text-align: center;
   text-transform: uppercase;
   font-size: 1.2em;
@@ -49,7 +49,7 @@ body {
 }
 
 .form {
-  padding: 2em 2.5em;
+  padding: 2em 3em;
   margin: 0 2.5em;
   display: flex;
   flex-direction: column;
@@ -81,9 +81,18 @@ body {
   margin-top: 0;
 }
 
+.message {
+  color: #fef8eb;
+  padding: 0;
+  padding-left: 10px;
+  border: none;
+  border-left: 3px solid #c0994f;
+}
+
 .message__text {
   font-family: "Open Sans", sans-serif;
   font-size: .8em;
+  margin: 0;
 }
 
 .form__input-box {
@@ -98,18 +107,6 @@ body {
 
 .form__input-box_select::placeholder {
   color:#fef8eb;
-}
-
-.message {
-  color: #fef8eb;
-  padding: 0;
-  padding-left: 10px;
-  border: none;
-  border-left: 3px solid #c0994f;
-}
-
-.message__text {
-  margin: 0;
 }
 
 .button {
@@ -169,7 +166,7 @@ input[type=checkbox]:checked + .form--checkbox-custom::before {
   padding-top: 0;
 }
 #errorMessage {
-  font-size: .4em;
+  font-size: .6em;
   color: #202020;
   font-family: serif;
 }

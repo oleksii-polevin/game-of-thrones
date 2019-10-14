@@ -102,7 +102,7 @@ function attemptSwitcher(element, name) {
     firstValidation(element);
   } else if(attempts[elemName] === 1) {
     focusValidation(element, name, 'focusout');
-  } else if(attempts[elemName] >= 2){
+  } else {
     focusValidation(element, name, 'keyup');
   }
   attempts[elemName]++;
