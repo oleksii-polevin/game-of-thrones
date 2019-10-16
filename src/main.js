@@ -30,16 +30,11 @@ const validationRules =
     return elem.length > 7;
   },
   name: function(elem) {
-    return elem.length > 2;
+    return elem.length > 2 && elem.length < 20;//symbols
   },
-  select: function(elem) {
-    const compare = document.getElementsByTagName('option');
-    for(i=0; i < compare.length; i++) {
-      if(elem === compare[i].innerHTML) {
-        return true;
-      }
-    }
-    return false;
+  select: function() {
+    return $('.current').html() === 'Select your Great House' ?
+    false : true;
   },
   textarea: function(elem) {
     const minNumberOfSymbols = 15;
@@ -58,10 +53,10 @@ forma.addEventListener('submit', function(e) {
     toggleMessage('show');
     if(!validationRules.password(password.value)) {
       attemptSwitcher(password, 'password');
-    }
+    } else normalise(password);
     if(!validationRules.email(email.value)) {
       attemptSwitcher(email, 'email');
-    }
+    } else normalise(email);
   }
 });
 
@@ -74,7 +69,7 @@ function toggleMessage(flag) {
 forma2.addEventListener('click', function(e) {
   e.preventDefault();
   if(validationRules.name(name.value) &&
-  validationRules.select(select.value) &&
+  validationRules.select() &&
   validationRules.textarea(textarea.value)) {
     alert('info is correct');
     toggleMessage('hide');
@@ -82,17 +77,31 @@ forma2.addEventListener('click', function(e) {
     toggleMessage('show');
     if(!validationRules.name(name.value)) {
       attemptSwitcher(name, 'name');
-    }
-    if(!validationRules["select"](select.value)) {
-      attemptSwitcher(select, 'select');
-    }
+    } else normalise(name);
     if(!validationRules.textarea(textarea.value)) {
       attemptSwitcher(textarea, 'textarea');
-    }
+    }else normalise(textarea);
+    selectSwitcher();
   }
 })
+//highliting dropdown
+function selectSwitcher() {
+    if(attempts.select === 0) {
+      attempts.select++;
+      validationRules.select() ? $('.houses').css("border", "1px solid #c0994f") :
+      $('.houses').css("border", "1px solid gray");
+    }
+    if(attempts.select > 0) {
+      $('.houses').change(function() {
+        validationRules.select() ? $('.houses').css("border", "1px solid green") :
+        $('.houses').css("border", "1px solid red");
+      })
+    }
+}
+//element - innerHTML of particular field
+//name - its string name
 function attemptSwitcher(element, name) {
-  let elemName;
+  let elemName; // for finding correct key of attempts object
   for(let key in attempts) {
     if(key.toString() === name) {
       elemName = key;
@@ -110,6 +119,9 @@ function attemptSwitcher(element, name) {
 
 function firstValidation(element) {
   element.style.borderBottom = '3px solid gray';
+}
+function normalise(element) {
+  element.style.borderBottom = '3px solid green';
 }
 
 function focusValidation(element, name, eventType) {
@@ -133,3 +145,50 @@ function showSecondForm() {
   first.style.display = "none";
   second.style.display = 'flex';
 }
+//holds number of house in particular order for displaying
+//by carousel slider
+const houses =
+{
+  "Select your Great House": 7,
+  arryn: 0,
+  baratheon:1,
+  greyjoy: 2,
+  lannister: 3,
+  martell: 4,
+  stark: 5,
+  tully: 6
+}
+//slider
+const owl = $('.owl-carousel');
+owl.owlCarousel({
+    items:1,
+    loop:true,
+    margin:10,
+    autoplay:true,
+    dots: false,
+    autoplayTimeout:2000,
+    autoplayHoverPause:true
+});
+$(document).ready(function() {
+  $('#houses').niceSelect();
+})
+
+$('#houses').on('change',function() {
+  const currentHouse = $('.current').html();
+  let number;
+  //dropdown wipe out everything except innerHTML,
+  //thus number of house (which is necesssary to display correct house)
+  //can be obtained from following loop
+  for(let key in houses) {
+     if(key === currentHouse){
+       number = houses[key];
+     }
+  }
+  if(number === 7) {
+    owl.trigger('play.owl.autoplay', [2000])
+  }
+  else {
+    owl.trigger('stop.owl.autoplay');
+    owl.trigger('to.owl.carousel', number)
+  }
+});
