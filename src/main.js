@@ -24,12 +24,11 @@ const validationRules =
 }
 
 email.addEventListener('blur', function() {
-  checker('email', email);
+  checker('email', email)
   pinListener('email', email);
 });
-
 password.addEventListener('blur', function() {
-  checker('password', password);
+  checker('password', password)
   pinListener('password', password);
 });
 
@@ -64,8 +63,8 @@ pinListener('name', name);
 pinListener('textarea', textarea);
 
 function checker(name, element) {
-const valid =  validationRules[name](element.value);
-valid ? removeError(element) : showError(element);
+  const valid =  validationRules[name](element.value);
+  valid ? removeError(element) : showError(element);
 }
 
 function pinListener(name, element) {
