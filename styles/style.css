@@ -36,8 +36,7 @@ body {
 .right {
   color: #d3bb89;
   background-image: url('../sources/image/darknoise.png');
-  background-size: cover;
-  align-content: center;
+  justify-content: center;
   display: flex;
   flex-direction:column;
   /* min-height: 100vh; */
@@ -53,13 +52,12 @@ body {
   font-family: "GameofThrones", serif;
   text-align: center;
   text-transform: uppercase;
-  font-size: 1.2em;
-  margin: 16px;
+  font-size: 1.4em;
+  margin: 20px 25px;
 }
 
 .form {
-  padding: 2em 3em;
-  margin: 0 2.5em;
+  padding: 0 2.5em;
   display: flex;
   flex-direction: column;
 }
@@ -123,7 +121,6 @@ body {
   font-family: "Open Sans", sans-serif;
   text-decoration: none;
   text-align: center;
-  margin-top: 3.5em;
   padding: 10px;
   background: #c19a49;
 }
@@ -143,6 +140,10 @@ body {
   font-family: "Open Sans", sans-serif;
   font-size: 10px;
   color: #fef8eb;
+}
+
+.form--checkbox-custom {
+  margin-bottom: 2em;
 }
 
 .form--checkbox-custom::before {
@@ -170,14 +171,9 @@ input[type=checkbox]:checked + .form--checkbox-custom::before {
   resize: none;
   height: 3em;
 }
-
-
-#secondForm {
+.invisible {
   display: none;
-  padding-top: 0;
 }
-#errorMessage {
-  font-size: .6em;
-  color: #202020;
-  font-family: "Open Sans", sans-serif;
+.error {
+  border-bottom: 3px solid red;
 }

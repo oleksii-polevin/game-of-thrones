@@ -22,23 +22,24 @@
         </div>
     </section>
     <section class="right">
-      <div class="heading">
-        <h1 class="heading__title">Game of thrones</h1>
-         <p id="errorMessage">Fill highlighted fields with correct info</p>
-      </div>
-      <form class="form" action="" method="get" id="firstForm">
-        <label for="mail" class="form__label">Enter your email</label>
-        <input type="email" class="form__input-box" id="mail" name="userdata" placeholder="example@gmail.com">
-        <label for="password" class="form__label">
-          <h4 class="password__heading">Choose secure password</h4>
-          <p class="password__text">Must be at least 8 characters</p>
-        </label>
-        <input type="password" class="form__input-box form__password" id="password" name="userdata" placeholder="enter your password">
-        <input type="checkbox" id="checkbox" name="userdata">
-        <label for="checkbox" class="form__label form--checkbox-custom">Remember me</label>
-        <button class="submit button" id="f" type="submit">Sign Up</button>
-      </form>
-      <form class="form" action="" method="post" id="secondForm">
+      <form class="form">
+        <div class="heading">
+          <h1 class="heading__title">Game of thrones</h1>
+        </div>
+        <div class="form" id="firstForm">
+          <label for="mail" class="form__label">Enter your email</label>
+          <input type="email" class="form__input-box" id="mail" name="userdata" placeholder="example@gmail.com">
+          <label for="password" class="form__label">
+            <h4 class="password__heading">Choose secure password</h4>
+            <p class="password__text">Must be at least 8 characters</p>
+          </label>
+          <input type="password" class="form__input-box form__password" id="password" name="userdata" minlength="8" placeholder="enter your password">
+
+          <input type="checkbox" id="checkbox" name="userdata">
+          <label for="checkbox" class="form__label form--checkbox-custom">Remember me</label>
+          <button type="button" class="submit button" id="signUp">Sign Up</button>
+        </div>
+      <div class="form invisible" id="secondForm">
         <div class="message">
           <p class="message__text">You've successfully joined the game. <br>
             Tell us more about yourself.
@@ -63,7 +64,8 @@
         </select>
         <label for="textarea" class="form__label">Your preferences, hobbies, wishes, etc.</label>
         <textarea name="textarea" id="textarea" class="form__input-box form__input-box__textarea" rows="3" placeholder="I have long TOKILL list..."></textarea>
-        <button id="save" class="submit button button__save" type="submit">Save</button>
+        <button id="save" type="button" class="submit button button__save">Save</button>
+      </div>
       </form>
     </section>
   </div>

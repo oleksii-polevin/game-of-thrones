@@ -1,149 +1,88 @@
 const email = document.getElementById('mail');
 const password = document.getElementById('password');
-const forma = document.getElementById('firstForm');
+const signUp = document.getElementById('signUp');
 const name = document.getElementById('name');
 const select = document.getElementById('select');
 const textarea = document.getElementById('textarea');
-const forma2 = document.getElementById('save');
-//firstly wrong fields highlighted when button clicked
-//second time when input area become inactive
-//finally wrong fields highlighted after each inputted symbol
-const attempts = {
-  email: 0,
-  password: 0,
-  select: 0,
-  name: 0,
-  textarea: 0
-}
-//contains all function necessary for validation
+const save = document.getElementById('save');
 const validationRules =
 {
   email: function(elem) {
-    const regex = /\w{2,16}\@\w{2,6}\.\w{2,4}/;
+    const regex = /^\w{2,16}\@\w{2,6}\.\w{2,4}$/;
     return regex.test(elem);
   },
   password:function(elem) {
-    //at least one lowercase letter, one uppercase,and one digit; length >=8
-    // const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
-    // return regex.test(elem);
-    //for testing
+
     return elem.length > 7;
   },
   name: function(elem) {
-    return elem.length > 2 && elem.length < 20;//symbols
+    const regex = /\w{2,20}/;
+    return regex.test(elem);
   },
-  select: function() {
-    return $('.current').html() === 'Select your Great House' ?
-    false : true;
+  select: function(elem) {
+    return elem === '' ? false : true;
   },
   textarea: function(elem) {
-    const minNumberOfSymbols = 15;
-    const maxNumberOfSymbols = 300;
-    return elem.length > minNumberOfSymbols && elem.length < maxNumberOfSymbols;
+    return elem === '' ? false : true;
   }
 }
 
-forma.addEventListener('submit', function(e) {
-  e.preventDefault();
-  if((validationRules.password(password.value)) &&
-  (validationRules.email(email.value))) {
+signUp.addEventListener('click', function(e) {
+  if(validationRules.email(email.value) &&
+  validationRules.password(password.value)) {
     showSecondForm();
-    toggleMessage('hide');
-  } else {
-    toggleMessage('show');
-    if(!validationRules.password(password.value)) {
-      attemptSwitcher(password, 'password');
-    } else normalise(password);
-    if(!validationRules.email(email.value)) {
-      attemptSwitcher(email, 'email');
-    } else normalise(email);
+  }
+  if(!validationRules.email(email.value)) {
+    showError(email);
+    pinListener('email', email);
+  }
+  if(!validationRules.password(password.value)) {
+    showError(password);
+    pinListener('password', password);
   }
 });
 
-function toggleMessage(flag) {
-  flag === 'show' ?
-  document.getElementById('errorMessage').style.color = 'red':
-  document.getElementById('errorMessage').style.color = '#202020';
-}
-
-forma2.addEventListener('click', function(e) {
-  e.preventDefault();
+save.addEventListener('click', function() {
   if(validationRules.name(name.value) &&
-  validationRules.select() &&
   validationRules.textarea(textarea.value)) {
     alert('info is correct');
-    toggleMessage('hide');
-  } else {
-    toggleMessage('show');
-    if(!validationRules.name(name.value)) {
-      attemptSwitcher(name, 'name');
-    } else normalise(name);
-    if(!validationRules.textarea(textarea.value)) {
-      attemptSwitcher(textarea, 'textarea');
-    }else normalise(textarea);
-    selectSwitcher();
   }
-})
-//highliting dropdown
-function selectSwitcher() {
-    if(attempts.select === 0) {
-      attempts.select++;
-      validationRules.select() ? $('.houses').css("border", "1px solid #c0994f") :
-      $('.houses').css("border", "1px solid gray");
-    }
-    if(attempts.select > 0) {
-      $('.houses').change(function() {
-        validationRules.select() ? $('.houses').css("border", "1px solid green") :
-        $('.houses').css("border", "1px solid red");
-      })
-    }
-}
-//element - innerHTML of particular field
-//name - its string name
-function attemptSwitcher(element, name) {
-  let elemName; // for finding correct key of attempts object
-  for(let key in attempts) {
-    if(key.toString() === name) {
-      elemName = key;
-    }
+  if(!validationRules.name(name.value)) {
+    showError(name);
+    pinListener('name', name);
   }
-  if(attempts[elemName] === 0) {
-    firstValidation(element);
-  } else if(attempts[elemName] === 1) {
-    focusValidation(element, name, 'focusout');
-  } else {
-    focusValidation(element, name, 'keyup');
-  }
-  attempts[elemName]++;
-}
 
-function firstValidation(element) {
-  element.style.borderBottom = '3px solid gray';
+  if(!validationRules.textarea(textarea.value)) {
+    showError(textarea);
+    pinListener('textarea', textarea);
+  }
+});
+
+function checker(name, element) {
+const valid =  validationRules[name](element.value);
+valid ? removeError(element) : showError(element);
 }
 function normalise(element) {
   element.style.borderBottom = '3px solid green';
 }
 
-function focusValidation(element, name, eventType) {
-  let elemName;
-  for(let key in validationRules) {
-    if(key.toString() === name) {
-      elemName = key;
-    }
-  }
-  const norm = '3px solid green';
-  const invalid = '3px solid red';
-  element.addEventListener(eventType, function () {
-    validationRules[elemName](element.value) ? element.style.borderBottom = norm
-    : element.style.borderBottom = invalid;
+function pinListener(name, element) {
+  element.addEventListener('keyup', function() {
+    checker(name, element);
   })
-}
+};
 
+function showError(element) {
+  element.classList.add('error');
+}
+function removeError(element) {
+  element.classList.remove('error');
+}
 function showSecondForm() {
   const first = document.getElementById('firstForm');
   const second = document.getElementById('secondForm');
-  first.style.display = "none";
-  second.style.display = 'flex';
+  first.classList.add('invisible');
+  second.classList.remove('invisible');
 }
 //holds number of house in particular order for displaying
 //by carousel slider
