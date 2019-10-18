@@ -19,11 +19,13 @@ const validationRules =
     const regex = /\w{2,20}/;
     return regex.test(elem);
   },
-  select: function(elem) {
-    return elem === '' ? false : true;
-  },
+  //will be checked on next stage(after dropdown plug-in)
+  // select: function(elem) {
+  //   return elem === '' ? false : true;
+  // },
   textarea: function(elem) {
-    return elem === '' ? false : true;
+    const minlength = 9;
+    return elem.length > minlength ? true : false;
   }
 }
 
@@ -49,14 +51,13 @@ save.addEventListener('click', function() {
   }
   if(!validationRules.name(name.value)) {
     showError(name);
-    pinListener('name', name);
   }
-
   if(!validationRules.textarea(textarea.value)) {
     showError(textarea);
-    pinListener('textarea', textarea);
   }
 });
+pinListener('name', name);
+pinListener('textarea', textarea);
 
 function checker(name, element) {
 const valid =  validationRules[name](element.value);
