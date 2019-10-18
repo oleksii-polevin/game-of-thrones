@@ -2,7 +2,6 @@ const email = document.getElementById('mail');
 const password = document.getElementById('password');
 const signUp = document.getElementById('signUp');
 const name = document.getElementById('name');
-const select = document.getElementById('select');
 const textarea = document.getElementById('textarea');
 const save = document.getElementById('save');
 const validationRules =
@@ -12,17 +11,12 @@ const validationRules =
     return regex.test(elem);
   },
   password:function(elem) {
-
     return elem.length > 7;
   },
   name: function(elem) {
     const regex = /\w{2,20}/;
     return regex.test(elem);
   },
-  //will be checked on next stage(after dropdown plug-in)
-  // select: function(elem) {
-  //   return elem === '' ? false : true;
-  // },
   textarea: function(elem) {
     const minlength = 9;
     return elem.length > minlength ? true : false;
@@ -30,9 +24,14 @@ const validationRules =
 }
 
 email.addEventListener('blur', function() {
-  checker('email', email)});
+  checker('email', email);
+  pinListener('email', email);
+});
+
 password.addEventListener('blur', function() {
-  checker('password', password)});
+  checker('password', password);
+  pinListener('password', password);
+});
 
 signUp.addEventListener('click', function(e) {
   if(validationRules.email(email.value) &&
@@ -67,9 +66,6 @@ pinListener('textarea', textarea);
 function checker(name, element) {
 const valid =  validationRules[name](element.value);
 valid ? removeError(element) : showError(element);
-}
-function normalise(element) {
-  element.style.borderBottom = '3px solid green';
 }
 
 function pinListener(name, element) {
@@ -130,7 +126,7 @@ $('#houses').on('change',function() {
      }
   }
   if(number === 7) {
-    owl.trigger('play.owl.autoplay', [2000])
+    owl.trigger('play.owl.autoplay', [2000]);
   }
   else {
     owl.trigger('stop.owl.autoplay');
