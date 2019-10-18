@@ -29,6 +29,11 @@ const validationRules =
   }
 }
 
+email.addEventListener('blur', function() {
+  checker('email', email)});
+password.addEventListener('blur', function() {
+  checker('password', password)});
+
 signUp.addEventListener('click', function(e) {
   if(validationRules.email(email.value) &&
   validationRules.password(password.value)) {
