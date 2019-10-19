@@ -3,7 +3,7 @@ const password = document.getElementById('password');
 const signUp = document.getElementById('signUp');
 const name = document.getElementById('name');
 const textarea = document.getElementById('textarea');
-const save = document.getElementById('save');
+const form = document.getElementById('form');
 const validationRules =
 {
   email: function(elem) {
@@ -14,14 +14,36 @@ const validationRules =
     return elem.length > 7;
   },
   name: function(elem) {
-    const regex = /\w{2,20}/;
+    const regex = /^\w{2,20}$/;
     return regex.test(elem);
+  },
+  select: function() {
+    const x =$('.current').text();
+    return x.indexOf('Select') === -1;
   },
   textarea: function(elem) {
     const minlength = 9;
     return elem.length > minlength ? true : false;
   }
 }
+
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+  if(validationRules.name(name.value) &&
+  validationRules.select() &&
+  validationRules.textarea(textarea.value)) {
+    alert('info is correct');
+  }
+  if(!validationRules.name(name.value)) {
+    showError(name);
+  }
+  if(!validationRules.textarea(textarea.value)) {
+    showError(textarea);
+  }
+  if(!validationRules.select()) {
+    $('.current').addClass('error');
+  }
+});
 
 email.addEventListener('blur', function() {
   checker('email', email)
@@ -47,19 +69,6 @@ signUp.addEventListener('click', function(e) {
   }
 });
 
-save.addEventListener('click', function() {
-
-  if(validationRules.name(name.value) &&
-  validationRules.textarea(textarea.value)) {
-    alert('info is correct');
-  }
-  if(!validationRules.name(name.value)) {
-    showError(name);
-  }
-  if(!validationRules.textarea(textarea.value)) {
-    showError(textarea);
-  }
-});
 pinListener('name', name);
 pinListener('textarea', textarea);
 
@@ -115,7 +124,8 @@ $(document).ready(function() {
 })
 
 $('#houses').on('change',function() {
-  const currentHouse = $('.current').html();
+  const currentHouse = $('.current').text();
+  // console.log(currentHouse);
   let number;
   //dropdown wipe out everything except innerHTML,
   //thus number of house (which is necesssary to display correct house)
@@ -125,11 +135,13 @@ $('#houses').on('change',function() {
        number = houses[key];
      }
   }
-  if(number === 7) {
+  if(number === 7) { //default
     owl.trigger('play.owl.autoplay', [2000]);
+    $('.current').addClass('error');
   }
   else {
     owl.trigger('stop.owl.autoplay');
-    owl.trigger('to.owl.carousel', number)
+    owl.trigger('to.owl.carousel', number);
+    $('.current').removeClass('error');
   }
 });
