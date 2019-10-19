@@ -3,7 +3,8 @@ const password = document.getElementById('password');
 const signUp = document.getElementById('signUp');
 const name = document.getElementById('name');
 const textarea = document.getElementById('textarea');
-const save = document.getElementById('save');
+const select = document.getElementById('select');
+const form = document.getElementById('form');
 const validationRules =
 {
   email: function(elem) {
@@ -14,8 +15,11 @@ const validationRules =
     return elem.length > 7;
   },
   name: function(elem) {
-    const regex = /\w{2,20}/;
+    const regex = /^\w{2,20}$/;
     return regex.test(elem);
+  },
+  select: function(elem) {
+     return elem.length > 0;
   },
   textarea: function(elem) {
     const minlength = 9;
@@ -47,8 +51,10 @@ signUp.addEventListener('click', function(e) {
   }
 });
 
-save.addEventListener('click', function() {
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
   if(validationRules.name(name.value) &&
+  validationRules.select(select.value) &&
   validationRules.textarea(textarea.value)) {
     alert('info is correct');
   }
@@ -58,9 +64,13 @@ save.addEventListener('click', function() {
   if(!validationRules.textarea(textarea.value)) {
     showError(textarea);
   }
+  if(!validationRules.select(select.value)) {
+    showError(select);
+  }
 });
 pinListener('name', name);
 pinListener('textarea', textarea);
+pinListener('select', select);
 
 function checker(name, element) {
   const valid =  validationRules[name](element.value);
