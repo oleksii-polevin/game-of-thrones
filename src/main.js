@@ -48,6 +48,7 @@ signUp.addEventListener('click', function(e) {
 });
 
 save.addEventListener('click', function() {
+
   if(validationRules.name(name.value) &&
   validationRules.textarea(textarea.value)) {
     alert('info is correct');
