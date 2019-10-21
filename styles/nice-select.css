@@ -1,14 +1,19 @@
+@font-face {
+  font-family: "Open Sans";
+  src:url('../sources/fonts/OpenSans-Regular.ttf');
+}
 .nice-select {
   -webkit-tap-highlight-color: transparent;
   background-color: #202020;
-  border-radius: 5px;
-  border: solid 1px #c0994f;
+  border: none;
+  border-bottom: 3px solid #c0994f;
+  margin-right: 1em;
   box-sizing: border-box;
   clear: both;
   cursor: pointer;
   display: block;
   float: left;
-  font-family: inherit;
+  font-family: "Open Sans", sans-serif;
   font-size: 14px;
   font-weight: normal;
   height: 42px;
@@ -29,7 +34,7 @@
   .nice-select:hover {
     border-color: #dbdbdb; }
   .nice-select:active, .nice-select.open, .nice-select:focus {
-    border-color: #999;
+    /* border-color: #c0994f; */
     width: auto;
    }
   .nice-select:after {
@@ -102,8 +107,8 @@
     position: absolute;
     width: auto;
     top: -350%;
-    left: -1%;
-    right: -1%;
+    left: 0;
+    right: -3%;
     -webkit-transform-origin: 50% 0;
         -ms-transform-origin: 50% 0;
             transform-origin: 50% 0;
@@ -151,3 +156,6 @@
  .current {
    text-transform: capitalize;
  }
+.error {
+  border-bottom: 3px solid red;
+}
