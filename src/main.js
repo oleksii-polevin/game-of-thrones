@@ -12,7 +12,8 @@ const isValid =
     return regex.test(elem);
   },
   password:function(elem) {
-    return elem.length > 7;
+    const MIN_LENGTH = 7;
+    return elem.length > MIN_LENGTH;
   },
   name: function(elem) {
     const regex = /^\w{2,20}$/;
@@ -23,7 +24,8 @@ const isValid =
     return x.indexOf('Select') === -1;
   },
   textarea: function(elem) {
-    return elem.length > 3;
+    const MIN_LENGTH = 3;
+    return elem.length > MIN_LENGTH;
   }
 }
 
@@ -116,33 +118,42 @@ const houses =
 const owl = $('.owl-carousel');
 
 owl.owlCarousel({
-  items:1,
-  loop:true,
-  margin:10,
-  autoplay:false,
+  items: 1,
+  loop: true,
+  margin: 10,
+  autoplay: true,
   center: true,
   dots: false,
-  autoplayTimeout:2000,
-  autoplayHoverPause:true,
+  autoplayTimeout: 2000,
+  autoplayHoverPause: true,
+});
+
+owl.on('resized.owl.carousel', function() {
+  showCurrentHouse();
 });
 
 //dropdown
 $('#houses').niceSelect();
 
 $('#houses').on('change', function() {
+  showCurrentHouse()
+  ? $('.nice-select').addClass('error')
+  : $('.nice-select').removeClass('error');
+});
+
+showCurrentHouse = () => {
   const currentHouse = $('.current').text();
   /*dropdown wipes out all except innerHTML
   thus, in order to display correct picture
-  its number nedded
+  its number needed
   */
   const houseNumber = houses[currentHouse];
-
   if(houseNumber === 'notSelected') { //default
-    owl.trigger('play.owl.autoplay', [2000]);
-    $('.nice-select').addClass('error');
+    owl.trigger('play.owl.autoplay');
+    return true;
   } else {
     owl.trigger('stop.owl.autoplay');
     owl.trigger('to.owl.carousel', houseNumber);
-    $('.nice-select').removeClass('error');
+    return false;
   }
-});
+}
