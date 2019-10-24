@@ -86,11 +86,11 @@ function pinListener (name, element) {
   })
 };
 
-showError = (element) => {
+const showError = (element) => {
   element.classList.add('error');
 }
 
-removeError = (element) => {
+const removeError = (element) => {
   element.classList.remove('error');
 }
 
