@@ -3,14 +3,26 @@
 <head>
   <meta charset="utf-8" content="width=device-width, initial-scale=1">
   <title>Game of Thrones</title>
+  <link rel="stylesheet" href="owlcarousel/owl.carousel.min.css">
+  <link rel="stylesheet" href="owlcarousel/owl.theme.default.min.css">
   <link rel="stylesheet" type="text/css" href="styles/style.css">
+  <link rel="stylesheet" href="styles/nice-select.css">
 </head>
 <body>
   <div class="landing-page">
     <section class="left">
+      <div class="owl-carousel owl">
+        <img src="sources/image/arryn.jpg" alt="0">
+        <img src="sources/image/baratheon.jpg" alt="1">
+        <img src="sources/image/greyjoy.jpg" alt="2">
+        <img src="sources/image/lannister.jpg" alt="3">
+        <img src="sources/image/martell.jpg" alt="4">
+        <img src="sources/image/stark.jpg" alt="5">
+        <img src="sources/image/tully.jpg" alt="6">
+        </div>
     </section>
     <section class="right">
-      <form class="form" id="form" action="">
+      <form class="form" id="form">
         <div class="heading">
           <h1 class="heading__title">Game of thrones</h1>
         </div>
@@ -39,14 +51,16 @@
         </label>
         <input type="text" id="name" class="form__input-box" name="userdata" placeholder="arya">
         <label for="houses" class="form__label">Your Great House</label>
-        <input list="houses" id="select" class="form__input-box form__input-box_select"  name="userdata" placeholder="Select House">
-        <datalist id="houses">
-          <option>First House</option>
-          <option>Second House</option>
-          <option>Third House</option>
-          <option>Fourth House</option>
-          <option>Last House</option>
-        </datalist>
+        <select id="houses" class="houses">
+          <option>Select your Great House</option>
+          <option>arryn</option>
+          <option>baratheon</option>
+          <option>greyjoy</option>
+          <option>lannister</option>
+          <option>martell</option>
+          <option>stark</option>
+          <option>tully</option>
+        </select>
         <label for="textarea" class="form__label">Your preferences, hobbies, wishes, etc.</label>
         <textarea name="textarea" id="textarea" class="form__input-box form__input-box__textarea" rows="3" placeholder="I have long TOKILL list..."></textarea>
         <button id="save" type="submit" class="submit button button__save">Save</button>
@@ -54,6 +68,10 @@
       </form>
     </section>
   </div>
+  <!-- <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script> -->
+  <script src="src/jquery-3.4.1.min.js"></script>
+  <script src="src/jquery.nice-select.js"></script>
+  <script src="owlcarousel/owl.carousel.min.js"></script>
+  <script type="text/javascript" src="src/main.js"></script>
 </body>
-<script type="text/javascript" src="src/main.js"></script>
 </html>
