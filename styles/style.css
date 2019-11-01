@@ -22,6 +22,7 @@ body {
 .landing-page {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  background-image: url('../sources/image/darknoise.png');
   /* min-height: 100vh; */
 }
 
@@ -32,7 +33,6 @@ body {
 
 .right {
   color: #d3bb89;
-  background-image: url('../sources/image/darknoise.png');
   justify-content: center;
   display: flex;
   flex-direction:column;

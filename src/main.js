@@ -47,17 +47,17 @@ form.addEventListener('submit', function(event) {
   }
 });
 
-email.addEventListener('blur', function() {
-  checker('email', email)
-  pinListener('email', email);
+email.addEventListener('blur', function(e) {
+  checker('email', e.target)
+  pinListener('email', e.target);
 });
 
-password.addEventListener('blur', function() {
-  checker('password', password)
-  pinListener('password', password);
+password.addEventListener('blur', function(e) {
+  checker('password', e.target)
+  pinListener('password', e.target);
 });
 
-signUp.addEventListener('click', function(e) {
+signUp.addEventListener('click', function() {
   if (isValid.email(email.value)
   &&  isValid.password(password.value)) {
     showSecondForm();
