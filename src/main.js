@@ -9,7 +9,7 @@ const select = document.getElementById('houses');
 const isValid =
 {
   email: function(elem) {
-    const regex = /^\w{2,16}\@\w{2,6}\.\w{2,4}$/;
+    const regex = /^\w{2,16}\@\w{1,6}\.\w{2,4}$/;
     return regex.test(elem);
   },
   password:function(elem) {

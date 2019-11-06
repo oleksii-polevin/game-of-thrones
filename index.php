@@ -33,7 +33,7 @@ if(isset($_POST['signUp'])) {
     $email_ok = false; // flag used for validation
     $password_ok = false;
     //regex for email
-    $regex = '/^\w{2,16}\@\w{2,6}\.\w{2,4}$/';
+    $regex = '/^\w{2,16}\@\w{1,6}\.\w{2,4}$/';
     $email = $_POST['email'];
     $password = $_POST['password'];
     //email validation
