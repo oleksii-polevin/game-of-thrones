@@ -178,6 +178,18 @@ input[type=checkbox]:checked + .form--checkbox-custom::before {
 .invisible {
   display: none;
 }
+#hidden {
+  position: absolute;
+  right: 10px;
+  top:20px;
+  color: red;
+}
 .error {
   border-bottom: 3px solid red;
+}
+.invalid {
+  color: red;
+}
+.info {
+  font-size: 2em;
 }

@@ -3,7 +3,8 @@ const password = document.getElementById('password');
 const signUp = document.getElementById('signUp');
 const name = document.getElementById('name');
 const textarea = document.getElementById('textarea');
-const form = document.getElementById('form');
+const firstForm = document.getElementById('firstForm')
+const secondForm = document.getElementById('secondForm');
 const select = document.getElementById('houses');
 const isValid =
 {
@@ -24,53 +25,47 @@ const isValid =
     return x.indexOf('Select') === -1;
   },
   textarea: function(elem) {
-    const MIN_LENGTH = 3;
+    const MIN_LENGTH = 7;
     return elem.length > MIN_LENGTH;
   }
 }
 
-form.addEventListener('submit', function(event) {
-  event.preventDefault();
-  if (isValid.name(name.value)
-  &&  isValid.select()
-  &&  isValid.textarea(textarea.value)) {
-    alert('info is correct');
-  }
-  if (!isValid.name(name.value)) {
-    showError(name);
-  }
-  if (!isValid.textarea(textarea.value)) {
-    showError(textarea);
-  }
-  if (!isValid.select()) {
-    $('.nice-select').addClass('error');
-  }
-});
+// secondForm.addEventListener('submit', function(event) {
+//   event.preventDefault();
+//   if (isValid.name(name.value)
+//   &&  isValid.select()
+//   &&  isValid.textarea(textarea.value)) {
+//     alert('info is correct');
+//   }
+//   if (!isValid.name(name.value)) {
+//     showError(name);
+//   }
+//   if (!isValid.textarea(textarea.value)) {
+//     showError(textarea);
+//   }
+//   if (!isValid.select()) {
+//     $('.nice-select').addClass('error');
+//   }
+// });
 
-email.addEventListener('blur', function(e) {
-  checker('email', e.target)
-  pinListener('email', e.target);
-});
+  pinListener('email', email);
+  pinListener('password', password);
 
-password.addEventListener('blur', function(e) {
-  checker('password', e.target)
-  pinListener('password', e.target);
-});
 
-signUp.addEventListener('click', function() {
-  if (isValid.email(email.value)
-  &&  isValid.password(password.value)) {
-    showSecondForm();
-  }
-  if (!isValid.email(email.value)) {
-    showError(email);
-    pinListener('email', email);
-  }
-  if (!isValid.password(password.value)) {
-    showError(password);
-    pinListener('password', password);
-  }
-});
+// firstForm.addEventListener('submit', function() {
+//   if (isValid.email(email.value)
+//   &&  isValid.password(password.value)) {
+//     showSecondForm();
+//   }
+//   if (!isValid.email(email.value)) {
+//     showError(email);
+//     pinListener('email', email);
+//   }
+//   if (!isValid.password(password.value)) {
+//     showError(password);
+//     pinListener('password', password);
+//   }
+// });
 
 pinListener('name', name);
 pinListener('textarea', textarea);
@@ -95,17 +90,15 @@ const removeError = (element) => {
   element.classList.remove('error');
 }
 
-showSecondForm = () => {
-  const first = document.getElementById('firstForm');
-  const second = document.getElementById('secondForm');
-  first.classList.add('invisible');
-  second.classList.remove('invisible');
-}
+// function showSecondForm () {
+//   firstForm.classList.add('invisible');
+//   secondForm.classList.remove('invisible');
+// }
 
 //holds number of house in particular order for displaying
 const houses =
 {
-  'Select your Great House': 'notSelected',
+  'Select Your Great House': 'notSelected',
   arryn: 0,
   baratheon: 1,
   greyjoy: 2,
@@ -136,11 +129,17 @@ owl.on('resized.owl.carousel', function() {
 //dropdown
 $('#houses').niceSelect();
 
+$(document).ready(function() {
+  showCurrentHouse();
+})
+
 $('#houses').on('change', function() {
   showCurrentHouse()
   ? $('.nice-select').addClass('error')
   : $('.nice-select').removeClass('error');
 });
+
+
 
 showCurrentHouse = () => {
   const currentHouse = $('.current').text();
