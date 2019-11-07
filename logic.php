@@ -12,7 +12,7 @@ $images = ['arryn','baratheon','greyjoy',
 $LENGTH = 7;
 
 // find out which form need to show
-if(!isset($_SESSION['first'])) {
+if(!isset($_SESSION['first_form'])) {
   $_SESSION['second_form'] = 'invisible';
   $_SESSION['first_form'] = '';
   $_SESSION['info'] = '';
@@ -134,7 +134,6 @@ function showSecondForm()
 
 function showInfo()
 {
-  $_SESSION['first_form'] = 'invisible';
   $_SESSION['second_form'] = 'invisible';
   $_SESSION['result'] = '';
   $user =  $_SESSION['user'];
