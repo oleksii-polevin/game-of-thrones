@@ -1,8 +1,7 @@
 <?php
 session_start();
 if(isset($_POST['back'])) {
-  unset($_SESSION);
-  session_destroy();
+  session_unset();
 }
 //array with images for slider
 $images = ['arryn','baratheon','greyjoy',

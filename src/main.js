@@ -71,7 +71,7 @@ pinListener('name', name);
 pinListener('textarea', textarea);
 pinListener('select', select);
 
-checker = (name, element) => {
+const checker = (name, element) => {
   const valid =  isValid[name](element.value);
   valid ? removeError(element) : showError(element);
 }
@@ -106,7 +106,11 @@ const houses =
   martell: 4,
   stark: 5,
   tully: 6
-}
+};
+
+$(document).ready(function() {
+  showCurrentHouse();
+});
 
 //slider
 const owl = $('.owl-carousel');
@@ -128,10 +132,6 @@ owl.on('resized.owl.carousel', function() {
 
 //dropdown
 $('#houses').niceSelect();
-
-$(document).ready(function() {
-  showCurrentHouse();
-})
 
 $('#houses').on('change', function() {
   showCurrentHouse()
