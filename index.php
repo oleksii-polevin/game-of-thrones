@@ -35,7 +35,7 @@ include 'logic.php';
             <h4 class="password__heading">Choose secure password<span class="invalid"><?php echo $errPassword?></span></h4>
             <p class="password__text">Must be at least 8 characters</p>
           </label>
-          <input type="password" class="form__input-box form__password" id="password" name="password" minlength="2" placeholder="enter your password">
+          <input type="password" class="form__input-box form__password" id="password" name="password" minlength="8" placeholder="enter your password">
           <input type="checkbox" id="checkbox" name="remember">
           <label for="checkbox" class="form__label form--checkbox-custom">Remember me</label>
           <button type="submit" class="submit button" name="signUp" id="signUp">Sign Up</button>
