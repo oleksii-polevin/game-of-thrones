@@ -1,22 +1,12 @@
 <?php
 session_start();
-if(isset($_POST['back'])) {
-  session_unset();
-}
+
 //array with images for slider
 $images = ['arryn','baratheon','greyjoy',
 'lannister','martell','stark','tully'];
 
 //for testing password and textarea
-$LENGTH = 7;
-
-// find out which form need to show
-if(!isset($_SESSION['first_form'])) {
-  $_SESSION['second_form'] = 'invisible';
-  $_SESSION['first_form'] = '';
-  $_SESSION['info'] = '';
-  $_SESSION['result'] = 'invisible';
-}
+define("LENGTH", "7");
 
 //default value for houses
 $not_selected = 'Select Your Great House';
@@ -28,45 +18,43 @@ $errEmail = $errPassword = $errName = $errHouse = $errTextarea = '';
 if(isset($_POST['signUp'])) {
   if(empty($_POST['email']) || empty($_POST['password'])) {
     $errEmail = $errPassword = "   Required";
+    unset($_SESSION['user']);
   } else {
-    $email_ok = false; // flag used for validation
-    $password_ok = false;
-    //regex for email
-    // $regex = '/^\w{2,16}\@\w{1,6}\.\w{2,4}$/';
+
     $email = $_POST['email'];
     $password = $_POST['password'];
-    //email validation
-    if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    if(!testEmail($email)) {
       unset($_SESSION['user']);
-      $errEmail = '   incorrect email';
-    } else {
-      $_SESSION['user'] = $email;
-      $email_ok = true;
-    }
-    //password validation
-    if(strlen($password) < $LENGTH) {
-      $errPassword = '   password is too short';
-      $password_ok = false;
-    } else {
-      $password_ok = true;
+      $errEmail = ' incorrect email';
     }
 
-    //check in 'database';       case: new user
-    if($email_ok && $password_ok && !findMail($email)) {
-      $data['password'] = $password;
-      $data = json_encode($data);
-      file_put_contents('data/'.$email.'.json', $data);
-      showSecondForm();
-      //                          case: existing user
-    } else if($email_ok && $password_ok && findMail($email)) {
-      $json_object = file_get_contents('data/'.$email.'.json');
-      $data = json_decode($json_object, true);
-      $_SESSION['data'] = $data;
-      // password verification
-      if($data['password'] === $password) {
-        showSecondForm();
-      } else {
-        $errPassword = '  wrong password';
+    if(!testPassword($password)) {
+      $errPassword = ' password is too short';
+    }
+
+    if(testEmail($email) && testPassword($password)) {
+      $_SESSION['user'] = $email;
+      // new user
+      if(!hasEmail($email)) {
+        $data['password'] = $password;
+        $data = json_encode($data);
+        file_put_contents('data/'.$email.'.json', $data);
+        header('Location: form2.php');
+        // added for testiing purposes
+      } else { // existing user
+        //$errEmail = "<br> <i>$email</i> is already registered.;
+        $json_object = file_get_contents('data/'.$email.'.json');
+        // read user's data
+        $data = json_decode($json_object, true);
+        $_SESSION['data'] = $data;
+        // password verification
+        if($data['password'] === $password) {
+          header('Location: form2.php');
+        } else {
+          $errEmail = "<br> <i>$email</i> is already registered. <br>
+          If you want to change personal info type your email and password";
+          unset($_SESSION['user']);
+        }
       }
     }
   }
@@ -89,7 +77,7 @@ if(isset($_POST['save'])) {
     $data['house'] = $house;
     $data['hobby'] = $textarea;
     file_put_contents('data/'.$user.'.json', json_encode($data));
-    showInfo();
+    header('Location: info.php');
   //processing errors
   } else {
     //invalid mame
@@ -100,7 +88,7 @@ if(isset($_POST['save'])) {
       $_SESSION['data']['name'] = $name;
     }
     //invalid textarea
-    if(strlen($textarea) < $LENGTH) {
+    if(strlen($textarea) < LENGTH) {
       unset($_SESSION['data']['hobby']);
       $errTextarea = "   Type at least 8 symbols";
     } else {
@@ -116,30 +104,22 @@ if(isset($_POST['save'])) {
   }
 }
 
-function findMail($email)
+//check file in folder 'data'
+function hasEmail($email)
 {
   $files = scandir('data');
-  if(in_array($email.'.json', $files)) {
-    return true;
-  }
-  return false;
+  return in_array($email.'.json', $files);
 }
 
-function showSecondForm()
+
+function testEmail($email)
 {
-  $_SESSION['first_form'] = 'invisible';
-  $_SESSION['second_form'] = '';
+  //regex for email
+  $regex = '/^\w{2,20}\@\w{1,6}\.\w{2,4}$/';
+  return preg_match($regex, $email);
 }
 
-function showInfo()
+function testPassword($password)
 {
-  $_SESSION['second_form'] = 'invisible';
-  $_SESSION['result'] = '';
-  $user =  $_SESSION['user'];
-  $json_object = file_get_contents('data/'.$user.'.json');
-  $data = json_decode($json_object, true);
-  $_SESSION['info'] .="<div>". $user."</div>";
-  foreach ($data as $key => $value) {
-    $_SESSION['info'] .= "<div>$key : $value</div>";
-  }
+  return strlen($password) > LENGTH;
 }

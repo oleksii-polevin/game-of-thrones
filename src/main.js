@@ -1,15 +1,23 @@
-const email = document.getElementById('mail');
-const password = document.getElementById('password');
-const signUp = document.getElementById('signUp');
-const name = document.getElementById('name');
-const textarea = document.getElementById('textarea');
-const firstForm = document.getElementById('firstForm')
-const secondForm = document.getElementById('secondForm');
-const select = document.getElementById('houses');
+if(document.getElementById('firstForm')) {
+  const email = document.getElementById('mail');
+  const password = document.getElementById('password');
+  pinListener('email', email);
+  pinListener('password', password);
+};
+
+if(document.getElementById('secondForm')) {
+  const name = document.getElementById('name');
+  const textarea = document.getElementById('textarea');
+  const select = document.getElementById('houses');
+  pinListener('name', name);
+  pinListener('textarea', textarea);
+  pinListener('select', select);
+};
+
 const isValid =
 {
   email: function(elem) {
-    const regex = /^\w{2,16}\@\w{1,6}\.\w{2,4}$/;
+    const regex = /^\w{2,20}\@\w{1,6}\.\w{2,4}$/;
     return regex.test(elem);
   },
   password:function(elem) {
@@ -30,51 +38,10 @@ const isValid =
   }
 }
 
-// secondForm.addEventListener('submit', function(event) {
-//   event.preventDefault();
-//   if (isValid.name(name.value)
-//   &&  isValid.select()
-//   &&  isValid.textarea(textarea.value)) {
-//     alert('info is correct');
-//   }
-//   if (!isValid.name(name.value)) {
-//     showError(name);
-//   }
-//   if (!isValid.textarea(textarea.value)) {
-//     showError(textarea);
-//   }
-//   if (!isValid.select()) {
-//     $('.nice-select').addClass('error');
-//   }
-// });
-
-  pinListener('email', email);
-  pinListener('password', password);
-
-
-// firstForm.addEventListener('submit', function() {
-//   if (isValid.email(email.value)
-//   &&  isValid.password(password.value)) {
-//     showSecondForm();
-//   }
-//   if (!isValid.email(email.value)) {
-//     showError(email);
-//     pinListener('email', email);
-//   }
-//   if (!isValid.password(password.value)) {
-//     showError(password);
-//     pinListener('password', password);
-//   }
-// });
-
-pinListener('name', name);
-pinListener('textarea', textarea);
-pinListener('select', select);
-
 const checker = (name, element) => {
   const valid =  isValid[name](element.value);
   valid ? removeError(element) : showError(element);
-}
+};
 
 function pinListener (name, element) {
   element.addEventListener('keyup', function() {
@@ -84,16 +51,11 @@ function pinListener (name, element) {
 
 const showError = (element) => {
   element.classList.add('error');
-}
+};
 
 const removeError = (element) => {
   element.classList.remove('error');
-}
-
-// function showSecondForm () {
-//   firstForm.classList.add('invisible');
-//   secondForm.classList.remove('invisible');
-// }
+};
 
 //holds number of house in particular order for displaying
 const houses =
@@ -139,15 +101,19 @@ $('#houses').on('change', function() {
   : $('.nice-select').removeClass('error');
 });
 
-
-
-showCurrentHouse = () => {
-  const currentHouse = $('.current').text();
+function showCurrentHouse() {
+  let currentHouse;
+  let houseNumber;
+  if(document.getElementById('secondForm')) {
+  currentHouse = $('.current').text();
+  houseNumber = houses[currentHouse];
+} else {
+  houseNumber = 'notSelected';
+}
   /*dropdown wipes out all except innerHTML
   thus, in order to display correct picture
   its number needed
   */
-  const houseNumber = houses[currentHouse];
   if(houseNumber === 'notSelected') { //default
     owl.trigger('play.owl.autoplay');
     return true;
