@@ -16,46 +16,47 @@ $errEmail = $errPassword = $errName = $errHouse = $errTextarea = '';
 
 //check first form
 if(isset($_POST['signUp'])) {
-  if(empty($_POST['email']) || empty($_POST['password'])) {
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+
+  if(empty($email) || empty($password)) {
     $errEmail = $errPassword = "   Required";
     unset($_SESSION['user']);
-  } else {
+    return;
+  }
 
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    if(!testEmail($email)) {
-      unset($_SESSION['user']);
-      $errEmail = ' incorrect email';
-    }
+  if(!testEmail($email)) {
+    unset($_SESSION['user']);
+    $errEmail = ' incorrect email';
+  }
 
-    if(!testPassword($password)) {
-      $errPassword = ' password is too short';
-    }
+  if(!testPassword($password)) {
+    $errPassword = ' password is too short';
+  }
 
-    if(testEmail($email) && testPassword($password)) {
-      $_SESSION['user'] = $email;
-      // new user
-      if(!hasEmail($email)) {
-        $data['password'] = $password;
-        $data = json_encode($data);
-        file_put_contents('data/'.$email.'.json', $data);
+  if(testEmail($email) && testPassword($password)) {
+    $_SESSION['user'] = $email;
+    // new user
+    if(!hasEmail($email)) {
+      $data['password'] = $password;
+      $data = json_encode($data);
+      file_put_contents('data/'.$email.'.json', $data);
+      header('Location: form2.php');
+      // added for testiing purposes
+    } else { // existing user
+      //$errEmail = "<br> <i>$email</i> is already registered.";
+      $json_object = file_get_contents('data/'.$email.'.json');
+      // read user's data
+      $data = json_decode($json_object, true);
+      $_SESSION['data'] = $data;
+      // password verification
+      if($data['password'] === $password) {
         header('Location: form2.php');
-        // added for testiing purposes
-      } else { // existing user
-        //$errEmail = "<br> <i>$email</i> is already registered.";
-        $json_object = file_get_contents('data/'.$email.'.json');
-        // read user's data
-        $data = json_decode($json_object, true);
-        $_SESSION['data'] = $data;
-        // password verification
-        if($data['password'] === $password) {
-          header('Location: form2.php');
-        } else {
-          $errEmail = "<br> <i>$email</i> is already registered. <br>
-          If you want to change personal info type your email and password";
-          unset($_SESSION['user']);
-          unset($_SESSION['data']);
-        }
+      } else {
+        $errEmail = "<br> <i>$email</i> is already registered. <br>
+        If you want to change personal info type your email and password";
+        unset($_SESSION['user']);
+        unset($_SESSION['data']);
       }
     }
   }
@@ -79,7 +80,7 @@ if(isset($_POST['save'])) {
     $data['hobby'] = $textarea;
     file_put_contents('data/'.$user.'.json', json_encode($data));
     header('Location: info.php');
-  //processing errors
+    //processing errors
   } else {
     //invalid mame
     if(!preg_match('/^\w{2,20}$/', $name)) {

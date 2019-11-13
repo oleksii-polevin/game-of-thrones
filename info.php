@@ -46,7 +46,7 @@ if(isset($_POST['back'])) {
         ?>
       </div>
       <form class="form info" action="<?php echo ($_SERVER["PHP_SELF"]);?>" method="post" id="info">
-        <button type="submit" name="back" class="submit button">back</button>
+        <button type="submit" name="back" class="submit button">home</button>
       </form>
     </div>
     <?php
