@@ -23,7 +23,8 @@ include 'variables.php';
     </section>
     <section class="right">
       <?php echo $title ?>
-      <form class="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" id="secondForm" method="post">
+      <form class="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"
+        id="secondForm" method="post">
         <div class="form">
           <div class="message">
             <p class="message__text">You've successfully joined the game. <br>
@@ -31,11 +32,18 @@ include 'variables.php';
             </p>
           </div>
           <label for="name" class="label">
-            <h2 class="label__heading">Who are you?<span class='invalid'><?php echo $errName?></span></h2>
+            <h2 class="label__heading">Who are you?<span class='invalid'>
+              <?php echo $errName?></span></h2>
             <p class="label__text">Alpha-numeric username</p>
           </label>
-          <input type="text" id="name" class="form__input-box" name="name" value="<?php if(isset($_SESSION['data']['name'])) echo $_SESSION['data']['name'];?>"  placeholder="arya">
-          <label for="houses" class="form__label">Your Great House<span class='invalid'><?php echo $errHouse?></span></label>
+          <input type="text" id="name" class="form__input-box" name="name"
+          value="<?php
+          if(isset($_SESSION['data']['name']))
+          echo $_SESSION['data']['name'];
+          ?>"
+          placeholder="arya">
+          <label for="houses" class="form__label">Your Great House
+            <span class='invalid'><?php echo $errHouse?></span></label>
           <select id="houses" name="house" class="houses">
             <?php
             if(isset($_SESSION['data']['house'])) {
@@ -54,9 +62,15 @@ include 'variables.php';
             }
             ?>
           </select>
-          <label for="textarea" class="form__label">Your preferences, hobbies, wishes, etc.<span class='invalid'><?php echo $errTextarea?></span></label>
-          <textarea name="hobby" id="textarea" class="form__input-box form__input-box__textarea" rows="3" placeholder="I have long TOKILL list..."><?php if(isset($_SESSION['data']['hobby'])) echo $_SESSION['data']['hobby']?></textarea>
-          <button id="save" type="submit" class="submit button button__save" name="save">Save</button>
+          <label for="textarea" class="form__label">
+            Your preferences, hobbies, wishes, etc.
+            <span class='invalid'><?php echo $errTextarea?></span></label>
+          <textarea name="hobby" id="textarea" class="form__input-box form__input-box__textarea"
+          rows="3" placeholder="I have long TOKILL list..."><?php
+          if(isset($_SESSION['data']['hobby']))
+          echo $_SESSION['data']['hobby']?></textarea>
+          <button id="save" type="submit" class="submit button button__save"
+          name="save">Save</button>
         </div>
       </form>
       <?php
