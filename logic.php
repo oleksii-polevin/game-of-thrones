@@ -42,9 +42,7 @@ if(isset($_POST['signUp'])) {
       $data = json_encode($data);
       file_put_contents('data/'.$email.'.json', $data);
       header('Location: form2.php');
-      // added for testiing purposes
     } else { // existing user
-      //$errEmail = "<br> <i>$email</i> is already registered.";
       $json_object = file_get_contents('data/'.$email.'.json');
       // read user's data
       $data = json_decode($json_object, true);
@@ -55,6 +53,7 @@ if(isset($_POST['signUp'])) {
       } else {
         $errEmail = "<br> <i>$email</i> is already registered. <br>
         If you want to change personal info type your email and password";
+        $errPassword = "wrong password";
         unset($_SESSION['user']);
         unset($_SESSION['data']);
       }
