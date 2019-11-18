@@ -15,9 +15,7 @@ include 'variables.php';
     <section class="left">
       <div class="owl-carousel owl">
         <?php
-        foreach($images as $item) {
-          echo "<img src='sources/image/$item.jpg' alt='$item'>";
-        }
+        createSlides();
         ?>
       </div>
     </section>
@@ -48,7 +46,7 @@ include 'variables.php';
             <?php
             if(isset($_SESSION['data']['house'])) {
               echo "<option>".$_SESSION['data']['house']."<option>";
-              foreach ($images as $item) {
+              foreach (images as $item) {
                 if($item !== $_SESSION['data']['house']) {
                   echo "<option>$item</option>";
                 }
@@ -56,7 +54,7 @@ include 'variables.php';
               echo "<option>$not_selected</option>";
             } else {
               echo "<option>$not_selected<option>";
-              foreach($images as $item) {
+              foreach(images as $item) {
                 echo "<option>$item</option>";
               }
             }

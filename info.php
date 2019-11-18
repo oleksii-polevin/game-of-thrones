@@ -32,9 +32,7 @@ if(isset($_POST['back'])) {
     <section class="left">
       <div class="owl-carousel owl">
         <?php
-        foreach($images as $item) {
-          echo "<img src='sources/image/$item.jpg' alt='$item'>";
-        }
+        createSlides();
         ?>
       </div>
     </section>

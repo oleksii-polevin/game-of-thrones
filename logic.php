@@ -2,6 +2,9 @@
 session_start();
 
 //array with images for slider
+define('images', ['arryn','baratheon','greyjoy',
+'lannister','martell','stark','tully']);
+
 $images = ['arryn','baratheon','greyjoy',
 'lannister','martell','stark','tully'];
 
@@ -121,4 +124,11 @@ function testEmail($email)
 function testPassword($password)
 {
   return strlen($password) > LENGTH;
+}
+
+function createSlides()
+{
+  foreach(images as $item) {
+    echo "<img src='public/sources/image/$item.jpg' alt='$item'>";
+  }
 }
