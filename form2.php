@@ -46,7 +46,7 @@ include 'variables.php';
             <?php
             if(isset($_SESSION['data']['house'])) {
               echo "<option>".$_SESSION['data']['house']."<option>";
-              foreach (images as $item) {
+              foreach (IMAGES as $item) {
                 if($item !== $_SESSION['data']['house']) {
                   echo "<option>$item</option>";
                 }
@@ -54,7 +54,7 @@ include 'variables.php';
               echo "<option>$not_selected</option>";
             } else {
               echo "<option>$not_selected<option>";
-              foreach(images as $item) {
+              foreach(IMAGES as $item) {
                 echo "<option>$item</option>";
               }
             }

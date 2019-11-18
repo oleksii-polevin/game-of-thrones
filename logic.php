@@ -2,11 +2,8 @@
 session_start();
 
 //array with images for slider
-define('images', ['arryn','baratheon','greyjoy',
+define('IMAGES', ['arryn','baratheon','greyjoy',
 'lannister','martell','stark','tully']);
-
-$images = ['arryn','baratheon','greyjoy',
-'lannister','martell','stark','tully'];
 
 //for testing password and textarea
 define("LENGTH", "7");
@@ -128,7 +125,7 @@ function testPassword($password)
 
 function createSlides()
 {
-  foreach(images as $item) {
+  foreach(IMAGES as $item) {
     echo "<img src='public/sources/image/$item.jpg' alt='$item'>";
   }
 }
