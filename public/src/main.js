@@ -84,7 +84,7 @@ owl.owlCarousel({
   autoplay: true,
   center: true,
   dots: false,
-  autoplayTimeout: 2000,
+  autoplayTimeout: 3000,
   autoplayHoverPause: true,
 });
 
