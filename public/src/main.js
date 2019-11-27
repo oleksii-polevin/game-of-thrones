@@ -6,6 +6,12 @@ if(document.getElementById('firstForm')) {
 };
 
 if(document.getElementById('secondForm')) {
+  const sForm = document.getElementById('secondForm');
+  sForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    sendData();
+  });
+
   const name = document.getElementById('name');
   const textarea = document.getElementById('textarea');
   const select = document.getElementById('houses');
@@ -25,7 +31,7 @@ const isValid =
     return elem.length > MIN_LENGTH;
   },
   name: function(elem) {
-    const regex = /^\w{2,20}$/;
+    const regex = /^\w{2,30}$/;
     return regex.test(elem);
   },
   select: function() {
@@ -105,11 +111,11 @@ function showCurrentHouse() {
   let currentHouse;
   let houseNumber;
   if(document.getElementById('secondForm')) {
-  currentHouse = $('.current').text();
-  houseNumber = houses[currentHouse];
-} else {
-  houseNumber = 'notSelected';
-}
+    currentHouse = $('.current').text();
+    houseNumber = houses[currentHouse];
+  } else {
+    houseNumber = 'notSelected';
+  }
   /*dropdown wipes out all except innerHTML
   thus, in order to display correct picture
   its number needed
@@ -121,5 +127,41 @@ function showCurrentHouse() {
     owl.trigger('stop.owl.autoplay');
     owl.trigger('to.owl.carousel', houseNumber);
     return false;
+  }
+};
+
+// ajax
+function sendData() {
+  const msg = $('#secondForm').serialize();
+  $.ajax({
+    type: 'POST',
+    url: 'logic.php',
+    data: msg,
+    //depending on user's input data can be json file(error case) or html file
+    success: function(data) {
+      // exchange second form to info
+      if(data.indexOf('div') > -1) {
+        $('#secondForm').replaceWith(data);
+        // display errors
+      } else {
+        data = JSON.parse(data);
+        errors(data);
+      }
+    },
+    error: function(xhr) {
+      alert('error: ' + xhr.status);
+    }
+  });
+};
+
+// set error messages
+const errors = data => {
+  $('#nameErr').text(data['name']);
+  $('#houseErr').text(data['house']);
+  $('#hobbyErr').text(data['hobby']);
+  if(data['name']) {
+    $('#nameErr2').css('color', 'red');
+  } else {
+    $('#nameErr2').css('color', 'white');
   }
 }

@@ -1,26 +1,28 @@
 <?php
 session_start();
 
-//array with images for slider
+// array with images for slider
 define('IMAGES', ['arryn','baratheon','greyjoy',
 'lannister','martell','stark','tully']);
 
-//for testing password and textarea
+define('DIR', 'data/');
+
+// for testing password and textarea
 define("LENGTH", "7");
 
-//default value for houses
+// default value for houses
 $not_selected = 'Select Your Great House';
 
-//error messages
-$errEmail = $errPassword = $errName = $errHouse = $errTextarea = '';
+// error messages
+$errEmail = $errPassword = '';
 
-//check first form
+// check first form
 if(isset($_POST['signUp'])) {
   $email = $_POST['email'];
   $password = $_POST['password'];
 
   if(empty($email) || empty($password)) {
-    $errEmail = $errPassword = "   Required";
+    $errEmail = $errPassword = " Required";
     unset($_SESSION['user']);
     return;
   }
@@ -40,16 +42,16 @@ if(isset($_POST['signUp'])) {
     if(!hasEmail($email)) {
       $data['password'] = $password;
       $data = json_encode($data);
-      file_put_contents('data/'.$email.'.json', $data);
-      header('Location: form2.php');
+      file_put_contents('./app/'.DIR.$email.'.json', $data);
+      header('Location: ./app/form2.php');
     } else { // existing user
-      $json_object = file_get_contents('data/'.$email.'.json');
+      $json_object = file_get_contents('./app/'.DIR.$email.'.json');
       // read user's data
       $data = json_decode($json_object, true);
       $_SESSION['data'] = $data;
       // password verification
       if($data['password'] === $password) {
-        header('Location: form2.php');
+        header('Location: ./app/form2.php');
       } else {
         $errEmail = "<br> <i>$email</i> is already registered. <br>
         If you want to change personal info type your email and password";
@@ -60,56 +62,61 @@ if(isset($_POST['signUp'])) {
     }
   }
 }
+
 //processing second form
-if(isset($_POST['save'])) {
+if(isset($_POST['second'])) {
+  $error = [];
   $user = $_SESSION['user'];
   $name = $_POST['name'];
   $house = $_POST['house'];
-  $textarea = $_POST['hobby'];
-  $json_object = file_get_contents('data/'.$user.'.json');
+  $hobby = $_POST['hobby'];
+  $json_object = file_get_contents(DIR.$user.'.json');
   $data = json_decode($json_object, true);
 
   // all fields are correct
   if(preg_match('/\w{2,20}/', $name)
-  && strlen($textarea) > LENGTH
+  && strlen($hobby) > LENGTH
   && $house !== $not_selected) {
 
     $data['name'] = $name;
     $data['house'] = $house;
-    $data['hobby'] = $textarea;
-    file_put_contents('data/'.$user.'.json', json_encode($data));
+    $data['hobby'] = $hobby;
+    file_put_contents(DIR.$user.'.json', json_encode($data));
     header('Location: info.php');
     //processing errors
   } else {
     //invalid mame
-    if(!preg_match('/^\w{2,20}$/', $name)) {
+    if(!preg_match('/^\w{2,30}$/', $name)) {
       unset($_SESSION['data']['name']);
-      $errName = "   Enter your name (only letters and digits allowed)";
+      $error['name'] = " Name should be from 2 to 30 symbols long";
     } else {
-      $_SESSION['data']['name'] = $name;
+      $error['name'] = '';
     }
     //invalid textarea
-    if(strlen($textarea) < LENGTH) {
+    if(strlen($hobby) < LENGTH) {
       unset($_SESSION['data']['hobby']);
-      $errTextarea = "   Type at least 8 symbols";
+      $error['hobby'] = "   Type at least 8 symbols";
     } else {
-      $_SESSION['data']['hobby'] = $textarea;
+      $error['hobby'] = '';
     }
     //house not selected
     if($house === $not_selected) {
       unset($_SESSION['data']['house']);
-      $errHouse = "   Choose house";
+      $error['house'] = " Choose house";
     } else {
-      $_SESSION['data']['house'] = $house;
+      $error['house'] = '';
     }
+    unset($_POST['second']);
+    echo json_encode($error);
   }
 }
 
 //check file in folder 'data'
 function hasEmail($email)
 {
-  $files = scandir('data');
-  return in_array($email.'.json', $files);
+  // $files = scandir('./app/data');
+  // return in_array($email.'.json', $files);
+  return file_exists("./app/data/".$email.".json");
 }
 
 function testEmail($email)
@@ -126,6 +133,6 @@ function testPassword($password)
 function createSlides()
 {
   foreach(IMAGES as $item) {
-    echo "<img src='public/sources/image/$item.jpg' alt='$item'>";
+    echo "<img src='../public/sources/image/$item.jpg' alt='$item'>";
   }
 }
