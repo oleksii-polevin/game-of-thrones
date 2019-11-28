@@ -1,3 +1,4 @@
-javascript version on branch experimental
-=========================================
+ajax version
+
+for testing purposes attr 'required' was deleted from input tags
 
