@@ -27,8 +27,7 @@ const isValid =
     return regex.test(elem);
   },
   password:function(elem) {
-    const MIN_LENGTH = 7;
-    return elem.length > MIN_LENGTH;
+    return elem.length > this.MIN_LENGTH;
   },
   name: function(elem) {
     const regex = /^\w{2,30}$/;
@@ -39,9 +38,9 @@ const isValid =
     return x.indexOf('Select') === -1;
   },
   textarea: function(elem) {
-    const MIN_LENGTH = 7;
-    return elem.length > MIN_LENGTH;
-  }
+    return elem.length > this.MIN_LENGTH;
+  },
+  MIN_LENGTH: 7
 }
 
 const checker = (name, element) => {
