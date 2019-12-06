@@ -5,7 +5,7 @@ session_start();
 define('IMAGES', ['arryn','baratheon','greyjoy',
 'lannister','martell','stark','tully']);
 
-define('DIR', 'data/');
+define('DIR', '../app/data/');
 
 // for testing password and textarea
 define("LENGTH", "7");
@@ -42,16 +42,16 @@ if(isset($_POST['signUp'])) {
     if(!hasEmail($email)) {
       $data['password'] = $password;
       $data = json_encode($data);
-      file_put_contents('./app/'.DIR.$email.'.json', $data);
-      header('Location: ./app/form2.php');
+      file_put_contents(DIR.$email.'.json', $data);
+      header('Location: ../app/form2.php');
     } else { // existing user
-      $json_object = file_get_contents('./app/'.DIR.$email.'.json');
+      $json_object = file_get_contents(DIR.$email.'.json');
       // read user's data
       $data = json_decode($json_object, true);
       $_SESSION['data'] = $data;
       // password verification
       if($data['password'] === $password) {
-        header('Location: ./app/form2.php');
+        header('Location: ../app/form2.php');
       } else {
         $errEmail = "<br> <i>$email</i> is already registered. <br>
         If you want to change personal info type your email and password";
@@ -116,7 +116,7 @@ function hasEmail($email)
 {
   // $files = scandir('./app/data');
   // return in_array($email.'.json', $files);
-  return file_exists("./app/data/".$email.".json");
+  return file_exists("../app/data/".$email.".json");
 }
 
 function testEmail($email)

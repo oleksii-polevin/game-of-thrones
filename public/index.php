@@ -1,6 +1,6 @@
 <?php
-include './app/logic.php';
-include './app/variables.php';
+include '../app/logic.php';
+include '../app/variables.php';
 ?>
 
 <!DOCTYPE html>

@@ -5,7 +5,7 @@ $info = '';
 //return to index and wipe out session variables
 if(isset($_POST['back'])) {
   session_destroy();
-  header('Location: ../index.php');
+  header('Location: ../public/index.php');
 } else { //show info
   $user = $_SESSION['user'] ?? $user = '';
   if($user) { // preventing of showing php errors on the screen if used alt + back
