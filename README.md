@@ -1,3 +1,3 @@
-javascript version on branch experimental
+ajax version on branch experimental
 =========================================
 
